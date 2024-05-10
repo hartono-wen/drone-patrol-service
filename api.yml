@@ -1,0 +1,213 @@
+# This is the OpenAPI specification for your service. It is used to generate the client code.
+# To generate the server code, use the Gradle task `openApiGenerate`. The 
+# generated code will be placed in `build/generate-resources/main`.
+#
+# We will evaluate you based on how well you design your API.
+# 1. How well it follows REST principles.
+# 2. How easy it is to understand and use.
+#
+# References
+# 1. https://swagger.io/specification/
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Plantation Management Service
+  license:
+    name: MIT
+servers:
+  - url: http://localhost
+paths:
+  /estate:
+    post:
+      summary: Create a new estate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstateRequest'
+      responses:
+        '201':
+          description: A new estate is created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstateResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /estate/{estate_id}/tree:
+    post:
+      summary: Register a tree to a specific estate to a certain coordinate
+      parameters:
+        - name: estate_id
+          in: path
+          description: ID of the estate
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TreeRequest'
+      responses:
+        '201':
+          description: A tree is registered to the estate successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TreeResponse'
+        '404':
+          description: Bad request
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /estate/{estate_id}/stats:
+    get:
+      summary: Get information about a specific estate based on the estate_id passed into the endpoint
+      parameters:
+          - name: estate_id
+            in: path
+            description: ID of the estate
+            required: true
+            schema:
+              type: string
+              format: uuid
+      requestBody: {}
+      responses:
+        '200':
+          description: HTTP Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstateStatsResponse'
+        '404':
+          description: The estate is not found
+        '500':
+          description: Internal server error
+  /estate/{estate_id}/drone-plan:
+    get:
+      summary: Get the sum distance of the drone monitoring travel in the specific estate
+      parameters:
+        - name: estate_id
+          in: path
+          description: ID of the estate
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: max-distance
+          in: query
+          description: Maximum distance that the drone can travel with the main battery
+          required: false
+          schema:
+            type: integer
+      requestBody: {}
+      responses:
+        '200':
+          description: HTTP Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DronePlanResponse'
+        '404':
+          description: The estate is not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    EstateRequest:
+      type: object
+      properties:
+        length:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: "required,numeric,min=1,max=50000"
+        width:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: "required,numeric,min=1,max=50000"
+      required:
+        - length
+        - width
+    EstateResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 018f49a0-88be-7fd6-a964-4f9742dbc90e
+    TreeRequest:
+      type: object
+      properties:
+        x:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: "required,numeric,min=1,max=50000"
+        y:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: "required,numeric,min=1,max=50000"
+        height:
+          type: integer
+          x-oapi-codegen-extra-tags:
+            validate: "required,numeric,min=1,max=30"
+      required:
+        - x
+        - y
+        - height
+    TreeResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 018f49a0-88be-7fd6-a964-4f9742dbc90e
+    EstateStatsResponse:
+      type: object
+      required:
+        - count
+        - max
+        - min
+        - median
+      properties:
+        count:
+          type: integer
+          example: 8
+        max:
+          type: integer
+          example: 9
+        min:
+          type: integer
+          example: 10
+        median:
+          type: number
+          format: float
+          example: 11
+    DronePlanResponse:
+      type: object
+      required:
+        - distance
+      properties:
+        distance:
+          type: integer
+          example: 5000
+        rest:
+          type: object
+          properties:
+            x:
+              type: integer
+              example: 10
+            y:
+              type: integer
+              example: 11
+
