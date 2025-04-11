@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/config"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/repository"
+	"github.com/hartono-wen/drone-patrol-service/config"
+	"github.com/hartono-wen/drone-patrol-service/repository"
 )
 
 type Server struct {

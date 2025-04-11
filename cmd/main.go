@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/config"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/generated"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/handler"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/repository"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/validator"
+	"github.com/hartono-wen/drone-patrol-service/config"
+	"github.com/hartono-wen/drone-patrol-service/generated"
+	"github.com/hartono-wen/drone-patrol-service/handler"
+	"github.com/hartono-wen/drone-patrol-service/repository"
+	"github.com/hartono-wen/drone-patrol-service/validator"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

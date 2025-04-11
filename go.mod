@@ -1,4 +1,4 @@
-module github.com/hartono-wen/sawitpro-technical-interview-software-architect
+module github.com/hartono-wen/drone-patrol-service
 
 go 1.21
 
