@@ -7,8 +7,8 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/generated"
-	"github.com/hartono-wen/sawitpro-technical-interview-software-architect/repository"
+	"github.com/hartono-wen/drone-patrol-service/generated"
+	"github.com/hartono-wen/drone-patrol-service/repository"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	openapi_types "github.com/oapi-codegen/runtime/types"
